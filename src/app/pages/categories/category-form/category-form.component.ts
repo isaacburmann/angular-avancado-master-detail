@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CategoryModel} from '../shared/category.model';
 import {ActivatedRoute, Router} from '@angular/router';
 import {switchMap} from 'rxjs/operators';
+import toastr from 'toastr';
+
 
 @Component({
   selector: 'app-category-form',
@@ -32,6 +34,16 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   ngAfterContentChecked() {
     this.setPageTitle();
+  }
+
+  submitForm() {
+    this.submittingForm = true;
+
+    if (this.currentAction === 'new') {
+      this.createCategory();
+    } else {
+      this.updateCategory();
+    }
   }
 
   // PRIVATE METHODS
@@ -76,5 +88,48 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     }
   }
 
+  private createCategory() {
+    const category: CategoryModel = Object.assign(new CategoryModel(), this.categoryForm.value);
+
+    this.categoryService.create(category)
+      .subscribe(
+        newCategory => this.actionsForSucess(newCategory),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private updateCategory() {
+    const category: CategoryModel = Object.assign(new CategoryModel(), this.categoryForm.value);
+
+    this.categoryService.update(category)
+      .subscribe(
+        newCategory => this.actionsForSucess(newCategory),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private actionsForSucess(category: CategoryModel) {
+    toastr.success('Solicitacao processada com sucesso!');
+
+    // redirect/reload component page
+    this.router.navigateByUrl('categories', {skipLocationChange: true}).then(
+      () => this.router.navigate(['categories', category.id, 'edit'])
+    );
+  }
+
+  private actionsForError(error) {
+    toastr.error('Ocorreu um erro ao processar a sua solicitacao');
+
+    this.submittingForm = false;
+
+    // Exemplo de tratamento de erros retornados por uma chamada de API real
+    // 422 significa que o servidor por alguma razao nao conseguiu processar a requisicao
+    if (error.status === 422) {
+      this.serverErrorMessages = JSON.parse(error._body).erros;
+      // Exemplo de errors retornando do server ['CPF ja existe', 'Nome nao pode ficar em branco']
+    } else {
+      this.serverErrorMessages = ['Falha na comunicacao com o servidor. Por favor, tente mais tarde.'];
+    }
+  }
 
 }
