@@ -1,12 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { CategoryModel } from './category.model';
+import { BaseResourceService } from '../../../shared/services/base-resource.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoryService extends BaseResourceService<CategoryModel>{
 
-  private apiPath = 'api/categories';
-
-  constructor(private http: HttpClient) { }
+  constructor(protected injector: Injector) {
+    super('api/categories', injector);
+  }
 }
