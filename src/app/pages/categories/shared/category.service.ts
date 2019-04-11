@@ -8,6 +8,6 @@ import { BaseResourceService } from '../../../shared/services/base-resource.serv
 export class CategoryService extends BaseResourceService<CategoryModel>{
 
   constructor(protected injector: Injector) {
-    super('api/categories', injector);
+    super('api/categories', injector, CategoryModel.fromJson);
   }
 }
