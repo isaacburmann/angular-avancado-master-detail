@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {CategoryService} from '../shared/category.service';
-import {CategoryModel} from '../shared/category.model';
-import {element} from 'protractor';
+import { Component } from '@angular/core';
+import { CategoryService } from '../shared/category.service';
+import { CategoryModel } from '../shared/category.model';
 import { BaseResourceListComponent } from '../../../shared/components/base-resource-list/base-resource-list.component';
 
 @Component({
