@@ -20,6 +20,7 @@
           <option value=""> Selecione um mes</option>
           <option value="1"> Janeiro </option>
           <option value="2"> Fevereiro </option>
+          <option value="4"> Abril </option>
         </select>
       </div>
 
@@ -29,6 +30,7 @@
           <option value="">Selecione um ano</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
+          <option value="2019">2019</option>
         </select>
       </div>
     </div>
@@ -49,7 +51,7 @@
       TOTAL DE RECEITAS
     </div>
     <div class="card-body">
-      <h3 class="card-title">1500</h3>
+      <h3 class="card-title">{{revenueTotal}}</h3>
     </div>
   </div>
 
@@ -58,7 +60,7 @@
       TOTAL DE DESPESAS
     </div>
     <div class="card-body">
-      <h3 class="card-title">500</h3>
+      <h3 class="card-title">{{expenseTotal}}</h3>
     </div>
   </div>
 
@@ -67,7 +69,7 @@
       SALDO
     </div>
     <div class="card-body">
-      <h3 class="card-title">1000</h3>
+      <h3 class="card-title">{{balance}}</h3>
     </div>
   </div>
 </div>
@@ -76,10 +78,10 @@
 
 <div class="row mt-5 mb-4">
   <div class="col-md-6">
-    GRAFICO DE RECEIYTAS
+    <p-chart type="bar" [data]="revenueChartData" [options]="chartOptions"></p-chart>
   </div>
 
   <div class="col-md-6">
-    GRAFICO DE DESPESAS
+    <p-chart type="bar" [data]="expenseChartData" [options]="chartOptions"></p-chart>
   </div>
 </div>

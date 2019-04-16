@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';
-import { AfterContentChecked, Component, Injector, OnInit } from '@angular/core';
+import { AfterContentChecked, Injector, OnInit } from '@angular/core';
 import { BaseResourceModel } from '../../models/base-resource.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BaseResourceService } from '../../services/base-resource.service';
